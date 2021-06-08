@@ -1,0 +1,27 @@
+{:paths ["src"]
+
+ :deps
+ {org.clojure/spec.alpha {:mvn/version "0.2.194"}}
+
+ :aliases
+ {; clj -M:cljfmt fix src test
+  :cljfmt
+  {:extra-deps {cljfmt/cljfmt {:mvn/version "0.6.4"}}
+   :main-opts ["-m" "cljfmt.main"]}
+
+  ; clj -M:1.10:test
+  ; clj -M:1.9:test
+  :test
+  {:extra-paths ["test"]
+   :extra-deps {lambdaisland/kaocha {:mvn/version "1.0.861"}}
+   :main-opts ["-m" "kaocha.runner"]}
+
+  :repl
+  {:extra-paths ["dev" "test"]
+   :extra-deps {org.clojure/tools.namespace {:mvn/version "1.1.0"}}}
+
+  :1.10
+  {:override-deps {org.clojure/clojure {:mvn/version "1.10.3"}}}
+
+  :1.9
+  {:override-deps {org.clojure/clojure {:mvn/version "1.9.0"}}}}}

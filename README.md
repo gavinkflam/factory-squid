@@ -1,0 +1,7 @@
+factory-squid
+=============
+
+License
+=======
+
+MIT
