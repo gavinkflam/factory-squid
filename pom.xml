@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+  <groupId>com.github.gavinkflam</groupId>
+  <artifactId>factory-squid</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>factory-squid</name>
+  <scm>
+    <connection>scm:git:git://github.com/gavinkflam/factory-squid.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/gavinkflam/factory-squid.git</developerConnection>
+    <tag>0.0.1-SNAPSHOT</tag>
+    <url>https://github.com/gavinkflam/factory-squid</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.10.3</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>spec.alpha</artifactId>
+      <version>0.2.194</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+  </build>
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://repo.clojars.org/</url>
+    </repository>
+  </repositories>
+</project>

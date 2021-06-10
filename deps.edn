@@ -20,13 +20,11 @@
   {:extra-paths ["dev" "test"]
    :extra-deps {org.clojure/tools.namespace {:mvn/version "1.1.0"}}}
 
-  ; clojure -X:jar
+  ; clojure -X:jar :version '"1.0.0-alpha2"'
   :jar
   {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
    :exec-fn hf.depstar/jar
-   :exec-args {:jar "factory-squid.jar" :sync-pom true
-               :group-id "com.github.gavinkflam" :artifact-id "factory-squid"
-               :version "1.0.0-alpha1"}}
+   :exec-args {:jar "factory-squid.jar"}}
 
   ; env CLOJARS_USERNAME=gavlam CLOJARS_PASSWORD=token clj -X:release-clojars
   :release-clojars
