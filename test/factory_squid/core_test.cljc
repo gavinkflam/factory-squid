@@ -231,6 +231,11 @@
     (is (= {:name "Bob"}
            (fs/build {:factory-fn (fn [_] {:name "Bob"})}))))
 
+  (testing "build with build-args as second argument"
+    (let [factory {:factory-fn (fn [f] {:factory f})}]
+      (is (= {:factory (assoc factory :build-args {:registered true})}
+             (fs/build factory {:registered true})))))
+
   (testing "fields should be merged into the product recursively"
     (is (= {:name {:first "Bob" :last "Roe"}}
            (fs/build {:factory-fn (fn [_] {:name {:first "Bob" :last "Doe"}})

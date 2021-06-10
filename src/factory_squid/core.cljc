@@ -84,7 +84,9 @@
   :ret  ::factory)
 
 (s/fdef build
-  :args (s/cat :factory ::factory)
+  :args (s/or :with-build-args (s/cat :factory    ::factory
+                                      :build-args ::build-args)
+              :just-factory    (s/cat :factory ::factory))
   :ret  map?)
 
 ;; Modification functions
@@ -169,13 +171,15 @@
   3. `post-build-fns` will be applied to the product sequentially
   4. the product will be validated against `spec`"
 
-  [{:keys [factory-fn spec fields post-build-fns] :as factory}]
-  (as-> factory $
-    (factory-fn $)
-    (deep-merge $ fields)
-    (reduce (fn [p next-fn] (next-fn p factory))
-            $ post-build-fns)
-    (assert-spec spec $)))
+  ([factory -build-args]
+   (-> factory (build-args -build-args) build))
+  ([factory]
+   (as-> factory $
+     ((:factory-fn factory) $)
+     (deep-merge $ (:fields factory))
+     (reduce (fn [p next-fn] (next-fn p factory))
+             $ (:post-build-fns factory))
+     (assert-spec (:spec factory) $))))
 
 ;; Instrumentation
 
