@@ -182,13 +182,16 @@
         fn2 (fn [p _] (assoc p :role "Admin"))
         fn3 (fn [p _] (assoc p :registered true))
 
-        alice-trait {:build-args     {:registered true}
+        map-s       (s/keys)
+        alice-trait {:spec           map-s
+                     :build-args     {:registered true}
                      :fields         {:name "Alice"}
                      :post-build-fns [fn2 fn3]}
         bob-trait   {:fields         {:name "Bob"}}
         guest-trait {:build-args     {:registered false :role "Guest"}}
 
         factory {:factory-fn dummy-factory-fn
+                 :spec ::with-name
                  :traits {:alice alice-trait :bob bob-trait :guest guest-trait}
                  :build-args {:registered :n/a :role "Admin"}
                  :fields {:name "Carol" :role "Admin"}
@@ -196,6 +199,7 @@
 
     (testing "apply trait of the given name"
       (is (= {:factory-fn dummy-factory-fn
+              :spec map-s
               :traits {:alice alice-trait :bob bob-trait :guest guest-trait}
               :build-args {:registered true :role "Admin"}
               :fields {:name "Alice" :role "Admin"}
@@ -204,12 +208,14 @@
 
     (testing "apply traits with incomplete params"
       (is (= {:factory-fn dummy-factory-fn
+              :spec ::with-name
               :traits {:alice alice-trait :bob bob-trait :guest guest-trait}
               :build-args {:registered :n/a :role "Admin"}
               :fields {:name "Bob" :role "Admin"}
               :post-build-fns [fn1]}
              (fs/trait factory :bob)))
       (is (= {:factory-fn dummy-factory-fn
+              :spec ::with-name
               :traits {:alice alice-trait :bob bob-trait :guest guest-trait}
               :build-args {:registered false :role "Guest"}
               :fields {:name "Carol" :role "Admin"}

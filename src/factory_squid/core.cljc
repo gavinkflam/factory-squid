@@ -40,13 +40,12 @@
 (s/def ::post-build-fn  fn?)
 (s/def ::post-build-fns (s/coll-of ::post-build-fn :into []))
 
+(s/def ::spec spec?)
 (s/def ::build-args map?)
 (s/def ::fields     map?)
 
-(s/def ::trait  (s/keys :opt-un [::build-args ::fields ::post-build-fns]))
+(s/def ::trait  (s/keys :opt-un [::spec ::build-args ::fields ::post-build-fns]))
 (s/def ::traits (s/map-of keyword? ::trait))
-
-(s/def ::spec spec?)
 
 (s/def ::factory (s/keys :req-un [::factory-fn]
                          :opt-un [::spec ::traits
@@ -147,6 +146,7 @@
   (if-let [trait (get-in factory [:traits trait-name])]
 
     (let [steps (concat
+                 (when (:spec trait)       [#(spec %1 (:spec trait))])
                  (when (:build-args trait) [#(build-args %1 (:build-args trait))])
                  (when (:fields trait)     [#(fields %1 (:fields trait))])
                  (map #(fn [f] (add-post-build-fn f %1))
