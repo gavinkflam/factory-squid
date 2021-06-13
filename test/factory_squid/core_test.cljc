@@ -101,7 +101,11 @@
 
     (testing "on factory with no post-build-fns"
       (is (= with-fn1
-             (fs/add-post-build-fn factory fn1))))
+             (fs/add-post-build-fn factory fn1)))
+      (is (= with-fn1-and-2
+             (-> factory
+                 (fs/add-post-build-fn fn1)
+                 (fs/add-post-build-fn fn2)))))
 
     (testing "append to existing post-build-fns"
       (is (= with-fn1-and-2

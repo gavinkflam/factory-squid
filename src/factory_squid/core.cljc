@@ -108,7 +108,7 @@
 
   [factory post-build-fn]
   (update factory :post-build-fns
-          (fn [fns] (conj (into fns []) post-build-fn))))
+          (fn [fns] (conj (into [] fns) post-build-fn))))
 
 (defn spec
   "Apply the given spec to the factory.
